@@ -1,0 +1,28 @@
+eksServiceRole - cluster iam
+
+NodeInstanceRole - node iam
+
+ami-0620d12a9cf777c87 (64-bit x86)
+
+
+===========================
+vpc public andprivate subnets
+
+https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-eks-vpc-private-subnets.yaml
+
+public subnets
+
+https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-eks-vpc-sample.yaml
+
+============================================
+
+worker node
+
+https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-eks-nodegroup.yaml
+
+
+
+
+
+
+YzNFV7PFUooIfmahc6McEy72PLUrw+DG5YQUBo5H

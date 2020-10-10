@@ -1,0 +1,140 @@
+INSTALLALING DOCKER IN UBUNTU 18.04
+
+
+Step 1 — Installing Docker
+-------------------------
+# sudo apt update
+
+
+Next, install a few prerequisite packages which let apt use packages over HTTPS:
+# sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+Then add the GPG key for the official Docker repository to your system:
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+Add the Docker repository to APT sources:
+#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+Next, update the package database with the Docker packages from the newly added repo:
+#sudo apt update
+
+Make sure you are about to install from the Docker repo instead of the default Ubuntu repo:
+#apt-cache policy docker-ce
+
+Finally, install Docker:
+#sudo apt install docker-ce
+
+#sudo systemctl status docker
+
+Step 2 — Executing the Docker Command Without Sudo(optional)
+-------------------------------------------------------------
+If you want to avoid typing sudo whenever you run the docker command, add your username to the docker group:
+#sudo usermod -aG docker ${USER}
+
+To apply the new group membership, log out of the server and back in, or type the following:
+#su - ${USER}
+
+Confirm that your user is now added to the docker group by typing:
+#id -nG
+Output
+sammy sudo docker
+
+if you need to add a user to the docker group that you’re not logged in as, declare that username explicitly using:
+
+#sudo usermod -aG docker username
+
+
+Step 3 — Using the Docker Command
+--------------------------------------
+# docker info
+
+Step 4 — Working with Docker Images
+-----------------------------------
+To check whether you can access and download images from Docker Hub, type:
+#docker run hello-world
+
+#docker search ubuntu
+
+
+Execute the following command to download the official ubuntu image to your computer:
+#docker pull ubuntu
+
+
+To see the images that have been downloaded to your computer, type:
+#docker images
+
+Step 5 — Running a Docker Container
+---------------------------------------
+As an example, let’s run a container using the latest image of Ubuntu. The combination of the -i and -t switches gives you interactive shell access into the container:
+#docker run -it ubuntu
+
+Output
+root@d9b100f2f636:/# 
+
+root@d9b100f2f636:/# apt update
+
+Then install any application in it. Let’s install Node.js:
+root@d9b100f2f636:/# apt install nodejs
+
+This installs Node.js in the container from the official Ubuntu repository. When the installation finishes, verify that Node.js is installed:
+root@d9b100f2f636:/# node -v
+
+root@d9b100f2f636:/# exit
+
+
+Step 6 — Managing Docker Containers
+-------------------------------------
+#docker ps
+You will see output similar to the following:
+
+Output
+CONTAINER ID        IMAGE               COMMAND             CREAT
+
+
+
+To view all containers — active and inactive, run docker ps with the -a switch:
+#docker ps -a
+
+To view the latest container you created, pass it the -l switch:
+#docker ps -l
+
+To start a stopped container, use docker start,
+#docker start d9b100f2f636
+
+#docker stop d9b100f2f636 
+or
+#docker stop docker image name
+
+#docker rm d9b100f2f636
+
+
+Step 7 — Committing Changes in a Container to a Docker Image
+-----------------------------------------------------------------
+
+Then commit the changes to a new Docker image instance using the following command.
+## docker commit -m "What you did to the image" -a "Author Name" container_id repository/new_image_name
+
+For example, for the user jafrulla123 , with the container ID of d9b100f2f636, the command would be:
+# docker commit -m "added Node.js" -a "jafrulla123" f1bb58748a55  jafrulla123/ubuntu-nodejs
+
+#docker images
+
+Step 8 — Pushing Docker Images to a Docker Repository
+---------------------------------------------------------
+To push your image, first log into Docker Hub.
+#docker login -u jafrulla123
+password: jafrulla@666
+
+Then you may push your own image using:
+## docker push docker-registry-username/docker-image-name
+
+example :
+#docker push jafrulla123/ubuntu-nodejs
+
+the continer image will be added to the dockerhub .Then we can login to dockerhub and check the repositpry is added or not
+====================================================================================================================================================
+docker hub login details
+------------------------
+docker id : jafrulla123
+email : jafrulla@casperon.in
+password : jafrulla@666

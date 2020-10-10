@@ -1,0 +1,86 @@
+certificate
+============
+
+mkdir $HOME/certs
+
+cd $HOME/certs
+
+openssl genrsa -out dashboard.key 2048
+openssl rsa -in dashboard.key -out dashboard.key
+openssl req -sha256 -new -key dashboard.key -out dashboard.csr
+openssl x509 -req -sha256 -days 365 -in dashboard.csr -signkey dashboard.key -out dashboard.crt
+
+secret
+========
+
+kubectl create namespace kubernetes-dashboard
+
+kubectl -n kubernetes-dashboard create secret generic kubernetes-dashboard-certs --from-file=$HOME/certs
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta7/aio/deploy/recommended.yaml
+
+kubectl get all -n kubernetes-dashboard === it show the repicas of dashboard
+
+kubectl edit service kubernetes-dashboard -n kubernetes-dashboard
+
+ kubectl get all -n kubernetes-dashboard
+-------------
+-->open the editer scroll down, you can see the " type : clusterIP " delete the cluster ip and change to "Nodeport" save&exit
+
+kubectl get all -n kubernets-dashboard  ----> you can see the changes 
+
+kubectl get rs -n kubernetes-dashboard
+
+
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernets-dashboard get secret | grep k8s-admin | awk'{print$1}')
+
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk'{print$1}')
+
+after dashboard ruuning go to the website " https://masterip:30238 " search 
+=============================================
+
+
+
+kubeadm join 172.31.11.182:6443 --token k76bub.8160i1p7mnvi85p0 \
+    --discovery-token-ca-cert-hash sha256:b49cb71cb89f4345c32537195e641b7462a32af854957299cf4bf057b4d7160b
+
+
+
+delete dashhboard
+
+kubectl delete deployment kubernetes-dashboard --namespace=kube-system
+
+kubectl delete service deployment kubernetes-dashboard --namespace=kube-system
+
+kubectl delete -f https://url
+
+
+
+
+token
+=======
+
+eyJhbGciOiJSUzI1NiIsImtpZCI6InRNMEwyX3JveC1iQ1NWWWR1bkFVcFZ2Sy16aDRQY1pUVURobkR2ZE1QSTQifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrOHMtYWRtaW4tdG9rZW4td3MyOWMiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiazhzLWFkbWluIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiZjU0MjM1MjEtZDYyNy00MGYxLWFkNzMtMDExNWU5NGFlYTA5Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmVybmV0ZXMtZGFzaGJvYXJkOms4cy1hZG1pbiJ9.GoZzz-loRqUwYlcawJOOW8NRe8b6sAG5zCv19wKH8KhmbtfqHyIpXRCK8-Fli54hSNtolDCQrwmXfjSna6SNgocS_6klFBtSiRaO9DYtI1DlGF6zNyhNqxzySgIgHavucVxhVPKKI7OdoRwGwsB6LQDRzMR68vplE35-Venbc-TvBI_x7ATyssnIJ157Xojm5Krvd4Fx3Zmxc_w-4gf0rzJl73hKIF2mDZGEdiFFY0_oYtj_JOufMk_qOeW-fMyNPjoY7gc_g4W4zxxNX8uSPfC-Pmg1sIfccAiSqqpmU073h4ZDhDOxvtft2Vxc5Jw8tJtyIvbzZLD6JmnSpYuQGw
+
+
+
+kubdem reset
+===============
+
+ kubeadm reset
+ iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
+ rm -rf $HOME/.kube/config
+
+
+sudo kubeadm init --pod-network-cidr=172.31.8.0/24
+
+
+
+
+
+
+
+
+
+f 
+

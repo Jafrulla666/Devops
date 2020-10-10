@@ -1,0 +1,94 @@
+Jenkins server
+ip :18.223.107.238
+Deployment server
+ip :3.135.228.32
+password : maha
+Jenkins login:
+username: maha
+password: maha123
+
+
+execute shell
+====================================================
+#!/bin/sh
+sudo su -
+cd /var/lib/jenkins/workspace/Handyprotestdeploy
+zip -r application.zip *
+sshpass -p 'handypro' scp -r /var/lib/jenkins/workspace/Handyprotestdeploy/application.zip root@172.30.100.58:/tmp/
+cd /var/lib/jenkins/workspace/Handyprotestdeploy
+rm -rf *
+
+after execute
+===================
+#!/bin/sh
+cd /tmp/
+unzip -o application.zip
+rm applic
+
+
+
+=================================================================
+node {
+   def mvnHome
+   stage('Preparation') { // for display purposes
+      // Get some code from a GitHub repository
+      git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+      // Get the Maven tool.
+      // ** NOTE: This 'M3' Maven tool must be configured
+      // **       in the global configuration.           
+      mvnHome = tool 'M3'
+   }
+   stage('Build') {
+      // Run the maven build
+      withEnv(["MVN_HOME=$mvnHome"]) {
+         if (isUnix()) {
+            sh "$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+         } else {
+            bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+         }
+      }
+   }
+   stage('Results') {
+      junit '**/target/surefire-reports/TEST-*.xml'
+      archiveArtifacts 'target/*.jar'
+   }
+}
+
+
+
+
+file1.jack
+
+sshpass -p jafrulla ssh root@172.31.44.144
+
+
+
+jafrulla
+Gayathiri@7
+
+
+
+
+
+13.232.255.200
+
+
+ation.zip
+
+pipeline 2
+--------------
+#!/bin/sh
+sshpass -p 'jafrulla' scp -r root@172.31.40.44:/var/lib/jenkins/workspace/pipeline /pack/
+
+cd /var/lib/jenkins/workspace/Handypro
+rm -rf *
+
+
+
+cd /var/lib/jenkins/workspace/
+
+
+
+
+
+

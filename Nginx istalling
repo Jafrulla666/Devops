@@ -1,0 +1,45 @@
+referance URL: https://www.digitalocean.com/community/tutorials/how-to-run-nginx-in-a-docker-container-on-ubuntu-14-04
+08/10/2020
+
+installing nginx
+-----------------
+
+# sudo docker pull nginx
+
+To run the nginx
+# sudo docker run --name docker-nginx -p 80:80 -d nginx
+
+To view the running continers
+# sudo docker ps
+
+To remove the containers
+# sudo docker rm docker-nginx
+
+Building a Web Page to Serve on Nginx
+--------------------------------------
+
+Let’s create a new directory for our website content within our home directory, and move to it, by running the commands shown below.
+
+# mkdir -p ~/docker-nginx/html
+# cd ~/docker-nginx/html
+# vim index.html
+
+       <html>
+  <head>
+<h1>Hello Digital Ocean</h1>
+ </body>
+</html>
+
+To do this, we use the -v flag to map a folder from our local machine (~/docker-nginx/html) to a relative path in the container (/usr/share/nginx/html).
+
+We can accomplish this by running the following command:
+
+# sudo docker run --name docker-nginx -p 80:80 -d -v ~/docker-nginx/html:/usr/share/nginx/html nginx
+
+# sudo docker exec --name docker-nginx -v ~/docker-nginx/html:/usr/share/nginx/html 
+
+ copy the content 
+------------------
+sudo docker cp /home/(name)/(folder_name)/(file_name)  (container_id):/(to_the_place_you_want_the_file_to_be)
+
+#docker cp ~/docker-nginx/html dfa94ba6fe1a:/usr/share/nginx/html

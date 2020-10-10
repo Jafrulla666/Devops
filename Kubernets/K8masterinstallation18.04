@@ -1,0 +1,96 @@
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+
+ apt-get update -y
+
+ swapoff -a
+
+ sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+ modprobe br_netfilter
+
+ sysctl -p
+
+ sudo sysctl net.bridge.bridge-nf-call-iptables=1
+
+ apt install docker.io -y
+
+ usermod -aG docker ubuntu
+
+ systemctl restart docker
+
+ systemctl enable docker.service
+
+ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+
+ systemctl daemon-reload
+
+ 
+ systemctl start kubelet
+
+   16  systemctl enable kubelet.service
+   17  kubeadm init
+
+
+   18  kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+   19  kubectl get pods --all-namespaces
+   20  kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+   21  kubectl get pods --all-namespaces
+   22  sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+   23  kubectl get pods --all-namespaces
+   24  kubectl get pods --all-namespaces
+   25  vi dashboard-admin.yaml
+   26  kubectl create -f dashboard-admin.yaml
+   27  vi dashboard-admin.yaml
+   28  kubectl create -f dashboard-admin.yaml
+   29  vi dashboard-admin.yaml
+   30  kubectl create -f dashboard-admin.yaml
+   31  vi dashboard-admin.yaml
+   32  kubectl create -f dashboard-admin.yaml
+   33  vi dashboard-admin.yaml
+   34  kubectl get pods --all-namespaces
+   35  history
+   36  kubectl get pods --all-namespaces
+   37  kubectl cluster-info
+   38  kubectl cluster-info
+
+   39   wget https://172.31.18.211:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+   40  wget https://172.31.18.211:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy --no-check-certificate
+
+ 84  kubectl proxy --address=172.31.18.211 --port=8001 --accept-hosts='^*$'
+
+
+
+
+
+
+
+kubeadm join 172.31.6.252:6443 --token xpvsad.yqz4h1cpoubcnk1s \
+    --discovery-token-ca-cert-hash sha256:5975acfbfaa8cdbb5705d1b98954f6beb69df0ecfbf5b641bce8683e2e949b28
+
+http://35.183.206.76:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login
+
+ 
+kubectl apply -f
+https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+
+
+
+
+
+kubectl patch node slave-node-1 -p '{"spec":{"podCIDR":"172.31.8.0/24"}}'   172-31-8-229
+
+sudo kubeadm init --pod-network-cidr=172.31.8.0/24
+
+sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+referance use this link
+============================
+https://vitux.com/install-and-deploy-kubernetes-on-ubuntu/
+
+
+
+
+kubeadm join 172.31.11.182:6443 --token q250l5.1nh9tsvwxo3fv3vc \
+    --discovery-token-ca-cert-hash sha256:7c1c3c8aa7b5d1649760bd88ecf587c7fdfae80c0c814ebcfdb96fdf3a39a9b6

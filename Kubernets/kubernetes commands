@@ -1,0 +1,55 @@
+Follow the steps given below to update your Deployment:
+
+Let’s update the nginx Pods to use the nginx:1.16.1 image instead of the nginx:1.14.2 image.
+
+# kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+
+or simply use the following command:
+
+# kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
+
+Run kubectl get rs to see that the Deployment updated the Pods by creating a new ReplicaSet and scaling it up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
+
+# kubectl get rs
+
+Running get pods should now show only the new Pods:
+
+#kubectl get pods
+ 
+Get details of your Deployment:
+
+# kubectl describe deployments
+
+Rolling Back to a Previous Revision
+Follow the steps given below to rollback the Deployment from the current version to the previous version, which is version 2.
+
+Now you’ve decided to undo the current rollout and rollback to the previous revision:
+
+# kubectl rollout undo deployment.v1.apps/nginx-deployment
+
+
+Pause by running the following command:
+
+# kubectl rollout pause deployment.v1.apps/nginx-deployment
+
+Then update the image of the Deployment:
+
+# kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
+
+Notice that no new rollout started:
+
+# kubectl rollout history deployment.v1.apps/nginx-deployment
+
+You can make as many updates as you wish, for example, update the resources that will be used:
+
+# kubectl set resources deployment.v1.apps/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+
+ventually, resume the Deployment and observe a new ReplicaSet coming up with all the new updates:
+
+# kubectl rollout resume deployment.v1.apps/nginx-deployment
+
+Watch the status of the rollout until it’s done.
+
+# kubectl get rs -w
+
+# kubectl rollout status deployment.v1.apps/nginx-deployment

@@ -1,0 +1,83 @@
+
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+sudo apt update
+sudo apt install docker-ce
+sudo systemctl status docker
+sudo usermod -aG docker ${USER}
+
+docker run -d -e POSTGRES_USER=odoo -e POSTGRES_PASSWORD=odoo -e POSTGRES_DB=postgres --name db postgres:10
+
+docker run -p 8069:8069 --name odoo --link db:db -t odoo
+
+
+
+
+
+
+
+===============================================
+ docker run -it --name odooqw -h a13a40cec6d9 -v /data debian /bin/bash
+
+
+
+
+
+docker network create --driver bridge odoo-nw
+--------------------
+
+docker volume create --name db-data
+
+docker run -d --name db  \
+ --env POSTGRES_USER=odoo --env POSTGRES_PASSWORD=odoo \
+ --env POSTGRES_DB=postgres \
+ --network=odoo-nw --mount source=db-data,target=/var/lib/postgresql/data  \
+ library/postgres:11.1
+
+docker volume create --name odoo-data
+
+docker volume create --name odoo-extra-addons
+
+docker run -d --name odoo --link db:db -p 8069:8069 \
+ --network odoo-nw \
+ --mount source=odoo-data,target=/var/lib/odoo \
+ --mount source=odoo-extra-addons,target=/mnt/extra-addons \
+ --env POSTGRES_PASSWORD=odoo \
+ veivaa/odoo:13.0
+
+
+
+==================================================
+You can check that Postgres started successfully by viewing the container logs:
+
+# docker logs db
+
+============================================
+volume create
+
+# docker volume create --name db-data --driver local --opt type=ext4 --opt device=/dev/xvdf1
+
+======================================
+mount the device
+
+#lsblk
+
+#fdisk /dev/xvdf
+
+mkfs.ext4 /dev/xvdf1
+
+#blkid /dev/xvdf1
+
+
+#vi /etc/fstab
+
+    UUID="9ee9bf7a-cc8e-4557-817e-db49f22358c9"     /mnt    ext4    defaults 0 0
+
+#mount -a
+==================
+
+docker rmi -f $(docker images -q)
+
+docker container rm $(docker container –q)

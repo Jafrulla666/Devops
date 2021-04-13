@@ -1,0 +1,78 @@
+1  sudo curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    2  sudo chmod +x /usr/local/bin/docker-compose
+    3  docker-compose --version
+    4  vi docker-compose.yml
+    5  vi prometheus.yml
+    6  docker-compose up -d
+    7  mkdir monitor
+    8  cd monitor/
+    9  vi prometheus.yml
+   10  vi docker-compose.yml
+   11  docker-compose up
+   12  docker-compose ps
+   13  cd jk/
+   14  vi docker-compose.yml
+   15  vi prometheus.yml
+   16  vi prometheus.yml
+   17  vi docker-compose.yml
+   18  docker-compose up -d
+   19  vi docker-compose.yml
+   20  docker-compose up -d
+   21  docker ps -a
+   22  docker stop 97e88d083893 7be4275e5186 ca8e0d0a81bb 3ff420a98561 ff2b409e1988
+   23  docker rm 97e88d083893 7be4275e5186 ca8e0d0a81bb 3ff420a98561 ff2b409e1988
+   24  docker ps -a
+   25  docker ps
+   26  docker images
+   27  docker system prune -a
+   28  vi prometheus.yml
+   29  docker-compose up -d
+   30  docker-compose ps -a
+   31  docker-compose ps
+   32  docker ps
+   33*
+   34  docker ps
+   35  docker stop b4bb4869f551
+   36  docker remove b4bb4869f551
+   37  docker rm b4bb4869f551
+   38  ls
+   39  vi alert.rules/
+   40  vi prometheus.yml
+   41  docker run -d -p 9090:9090 -v ~/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus -config.file=/etc/prometheus/prometheus.yml -storage.local.path=/prometheus -storage.lo
+   42  docker ps
+   43  docker ps -a
+   44  docker exec -it 3327e19ce15 bash
+   45  docker exec -it b3327e19ce15 bash
+   46  docker rm b3327e19ce15
+   47  docker service create --replicas 1 --name my-prometheus     --mount type=bind,source=/tmp/prometheus.yml,destination=/etc/prometheus/prometheus.yml     --publish published=9090,targ
+   48  docker service create --replicas 1 --name my-prometheus     --mount type=bind,source=/root/jk/prometheus.yml,destination=/etc/prometheus/prometheus.yml     --publish published=9090,
+   49  docker pull prom/prometheus
+   50  docker run -d -p 9090:9090 -t prom/prometheus
+   51  docker ps -q
+   52  docker ps
+   53  docker exec -it 3c13b8504f3b bash
+   54  docker exec -it 3c13b8504f3b sh
+   55  docker restart  3c13b8504f3b
+   56  docker ps -a
+   57  docker restart  3c13b8504f3b
+   58  docker ps -a
+   59  docker exec -it 3c13b8504f3b sh
+   60  docker exec -it 3c13b8504f3b sh\
+   61  docker rm 3c13b8504f3b
+   62  docker run -d -p 9090:9090 -t prom/prometheus
+   63  docker ps -a
+   64  docker exec -it 9b864d6811a5 sh
+   65  docker restart  9b864d6811a5
+   66  docker ps -a
+   67  docker exec -it 9b864d6811a5 sh
+   68  docker restart  9b864d6811a5
+   69  docker ps -a
+   70  docker restart  9b864d6811a5
+   71  docker ps -a
+   72  docker exec -it 9b864d6811a5 sh
+   73  docker restart  9b864d6811a5
+   74  docker ps -a
+   75  docker pull grafana
+   76  docker run -d -p 3000:3000 grafana/grafana
+   77  docker ps -a
+   78  history
